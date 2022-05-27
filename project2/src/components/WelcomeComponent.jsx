@@ -12,7 +12,7 @@ class Welcome extends Component {
   <div style={JumboCompStyle}>
     <h1>Welcome!</h1>
     <h3>
-      Let's eat!
+      Find your book by title.
     </h3>
     <p>
       <Button variant="dark" className="mt-3">Learn more</Button>

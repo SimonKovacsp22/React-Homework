@@ -2,7 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import MyNav from './components/MyNav'
 import MyFooter from './components/MyFooter'
 import Welcome from './components/WelcomeComponent';
-import Books from './components/LatestRelease'
+import BookList from './components/BookList';
+import romance from './data/romance.json'
 
 
 function App() {
@@ -13,9 +14,11 @@ function App() {
     <Welcome>
 
     </Welcome>
-    <Books>
+    <BookList books={romance}/>
 
-    </Books>
+    
+    
+ 
     <MyFooter>
 
     </MyFooter>
