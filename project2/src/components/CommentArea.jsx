@@ -1,7 +1,8 @@
 import React from 'react'
 import CommentList from './CommentList'
-import {Spinner} from 'react-bootstrap'
+import {Spinner,Button} from 'react-bootstrap'
 import AlertDismissibleExample from './Alert';
+import AddComment from './AddComment';
 
 
 
@@ -10,10 +11,15 @@ export default class CommentArea extends React.Component {
         comments:[],
         isLoading: true,
         isError: false,
+        addCommentVisible:false,
+        addCommentBtnVisible: true
     }
-    componentDidMount= () => {
+  
+    componentDidUpdate= (prevProps) => {
+        if(prevProps.asin !== this.props.asin){
+            this.fetchComments()
+        }
         
-        this.fetchComments()
     }
     fetchComments = async ()=> {
         try{
@@ -24,6 +30,7 @@ export default class CommentArea extends React.Component {
                 })
                 if(response.ok) {
                     let data = await response.json()
+                    console.log(data)
                     
                     this.setState({
                         comments: data,
@@ -47,11 +54,20 @@ export default class CommentArea extends React.Component {
         return (
         <div>
             <div className='d-flex justify-content-center'>
-            {this.state.isLoading &&
+            {(this.state.isLoading && this.props.asin!==undefined) &&
             (<Spinner animation="border" />)}
             {this.state.isError && (<AlertDismissibleExample/>)}
             </div>
-            <CommentList comments={this.state.comments} />
+            <CommentList comments={this.state.comments} fetch={this.fetchComments} />
+            <div className='d-flex justify-content-center'>
+               <div className=''>
+                    {this.state.addCommentBtnVisible && <Button onClick={()=>{this.setState(
+                        {addCommentVisible:true,addCommentBtnVisible:false}
+    
+                    )}} className='btn btn-light'>Add Comment</Button>}
+                    {this.state.addCommentVisible && <AddComment asin={this.props.asin}/>}
+               </div>
+                </div>
         </div>
         )
     }

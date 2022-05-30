@@ -3,6 +3,9 @@ import React from 'react'
 
 export default class CommentList extends React.Component {
 
+
+  
+
     deleteComment = async (url)=> {
       
          await fetch(url, {
@@ -21,15 +24,20 @@ export default class CommentList extends React.Component {
     
   
     render () {
-        return (this.props.comments.map((comment,i)=>(
-            <div key={comment._id} className='d-flex justify-content-between px-3'>
+        return (
+            this.props.comments.map((comment)=>(
+            <div key={comment._id} className='d-flex justify-content-between px-3 align-items-center'>
                 <p >{comment.comment}</p>
                 <button onClick={()=>{
                        this.deleteComment(`https://striveschool-api.herokuapp.com/api/comments/${comment._id}`)
+                       
+                       
                 }
 }
 className='btn btn-dark' >DELETE</button>
             </div>
-        )))
+        ))
+        
+        )
     }
 }

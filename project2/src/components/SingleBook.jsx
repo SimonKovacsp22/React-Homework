@@ -1,13 +1,12 @@
 import {Component} from 'react'
 import {Card,Button} from 'react-bootstrap'
-import CommentArea from './CommentArea'
+
 
 
 class SingleBook extends Component {
-  state = {
-    selected: false,
-    isShowing: false,
-  };
+ 
+ 
+   
   render() {
     const bookStyle = {
         marginLeft: '10px',
@@ -15,27 +14,27 @@ class SingleBook extends Component {
         width: '18rem',
         
       }
-    const {title,img,price,category,asin} = this.props.title;
+      const {selection, book} = this.props
+      
     return (
-      <div className='d-flex flex-column'>
+      
       <Card  style={bookStyle}variant="top"
         onClick={() => {
-          this.setState({
-            selected: true,
-            isShowing: true
-          });
-        }}
+        selection(book.asin)
         
-      >
-        <Card.Img   src={img} style={{height: '25rem'}}/>
+      
+        
+      }
+    }>
+      
+        <Card.Img   src={book.img} style={{height: '25rem'}}/>
         <Card.Body>
-          <Card.Title>{title}</Card.Title>
-          <Card.Text>Category: {category}</Card.Text>
-          <Button variant="primary">{price} $</Button>
+          <Card.Title>{book.title}</Card.Title>
+          <Card.Text>Category: {book.category}</Card.Text>
+          <Button variant="primary">{book.price} $</Button>
         </Card.Body>
       </Card>
-      {this.state.isShowing && (<CommentArea asin={asin} />)}
-      </div>
+      
     );
   }
 }
