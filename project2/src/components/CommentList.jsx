@@ -1,13 +1,13 @@
 
 
 
- const CommentList = function ({comments,fetchData}) {
+ const CommentList = function ({comments,setLoading}) {
 
 
   
 
     const deleteComment = async (url)=> {
-      
+      try{
          await fetch(url, {
             method: 'DELETE',
             headers: {
@@ -15,11 +15,11 @@
                 'Content-type': 'application/json'
             }
         });
-  
-        
-        const resData = 'resource deleted...';
-  
-        return resData;
+        setLoading(true)
+    }
+    catch(error){
+        console.log(error)
+}
     }
     
   

@@ -17,7 +17,7 @@ const CommentArea = function({asin})  {
   
    useEffect(()=>{
        fetchComments()
-   },[asin])
+   },[asin,isLoading])
         
     
     const fetchComments = async ()=> {
@@ -54,7 +54,7 @@ const CommentArea = function({asin})  {
             (<Spinner animation="border" />)}
             {isError && (<AlertDismissibleExample/>)}
             </div>
-            <CommentList comments={comments} fetchData={fetchComments} />
+            <CommentList comments={comments} setLoading={setIsLoading}/>
             <div className='d-flex justify-content-center'>
                <div className=''>
                     {addCommentBtnVisible && <Button onClick={()=>{
@@ -63,7 +63,7 @@ const CommentArea = function({asin})  {
                     }} 
                     className='btn btn-light'>Add Comment</Button>}
                     
-                    {addCommentVisible && <AddComment asin={asin}/>}
+                    {addCommentVisible && <AddComment  setLoading={setIsLoading} asin={asin}/>}
                </div>
                 </div>
         </div>

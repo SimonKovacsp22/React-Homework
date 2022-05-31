@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
 import {Button, Form} from 'react-bootstrap'
 
-const AddComment = function ({asin}) {
+const AddComment = function ({asin,setLoading,}) {
 
-   const [isLoading,setIsLoading] = useState(true)
+   
    const [comment, setComment] = useState({'comment':'','rate':'1'})
  
      
@@ -19,7 +19,7 @@ const AddComment = function ({asin}) {
             
         });
         if(response.ok) {
-          setIsLoading(false)
+          setLoading(true)
         return response.json();
     }
   }
