@@ -1,12 +1,11 @@
-import {Component} from 'react'
 import  {Jumbotron,Button} from 'react-bootstrap'
 
-class Welcome extends Component {
-    render() {
+ const Welcome = () => {
+    
       const JumboCompStyle = {
         marginLeft:'200px',
-        
       }
+      
         return(
         <Jumbotron className="pb-1">
   <div style={JumboCompStyle}>
@@ -20,7 +19,7 @@ class Welcome extends Component {
   </div>
       </Jumbotron>
         )
-    }
+    
 }
 
 export default Welcome

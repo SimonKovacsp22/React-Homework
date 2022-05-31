@@ -1,12 +1,12 @@
-import React from 'react'
 
 
-export default class CommentList extends React.Component {
+
+ const CommentList = function ({comments,fetchData}) {
 
 
   
 
-    deleteComment = async (url)=> {
+    const deleteComment = async (url)=> {
       
          await fetch(url, {
             method: 'DELETE',
@@ -23,13 +23,13 @@ export default class CommentList extends React.Component {
     }
     
   
-    render () {
+  
         return (
-            this.props.comments.map((comment)=>(
+            comments.map((comment)=>(
             <div key={comment._id} className='d-flex justify-content-between px-3 align-items-center'>
                 <p >{comment.comment}</p>
                 <button onClick={()=>{
-                       this.deleteComment(`https://striveschool-api.herokuapp.com/api/comments/${comment._id}`)
+                       deleteComment(`https://striveschool-api.herokuapp.com/api/comments/${comment._id}`)
                        
                        
                 }
@@ -40,4 +40,5 @@ className='btn btn-dark' >DELETE</button>
         
         )
     }
-}
+
+    export default CommentList

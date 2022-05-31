@@ -1,11 +1,11 @@
-import { Component } from 'react'
+
 import {Navbar,Nav,Form,FormControl} from 'react-bootstrap'
 
 
 
 
-class MyNav extends Component {
-    render(){
+const MyNav =function () {
+   
         return (
         <Navbar bg="dark" variant="dark">
     <Navbar.Brand href="#home">Library</Navbar.Brand>
@@ -22,7 +22,7 @@ class MyNav extends Component {
     </Nav>
    </Navbar>
         
-    )}
+    )
     
 }
 

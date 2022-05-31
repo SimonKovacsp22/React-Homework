@@ -1,21 +1,13 @@
-import React, { Component } from 'react'
+import { useState, useEffect } from 'react'
 import {Button, Form} from 'react-bootstrap'
-import { v4 as uuidv4 } from 'uuid';
 
-export default class AddComment extends Component {
-     state={
-       isLoading:false,
-         comment :{
-        "comment": '',
-        "rate": '1',
-      },}
+const AddComment = function ({asin}) {
 
-      setLoading = (boolean) => {
-        this.setState({
-          isLoading: boolean
-        })
-      }
-    postComments = async ()=> {
+   const [isLoading,setIsLoading] = useState(true)
+   const [comment, setComment] = useState({'comment':'','rate':'1'})
+ 
+     
+    const postComments = async ()=> {
         const response = await fetch(`https://striveschool-api.herokuapp.com/api/comments`, {
             method: 'POST',
             headers: {
@@ -23,42 +15,34 @@ export default class AddComment extends Component {
                 'Content-type': 'application/json',
                   
             },
-            body: JSON.stringify({...this.state.comment,elementId:this.props.asin}) 
+            body: JSON.stringify({...comment,elementId:asin}) 
             
         });
         if(response.ok) {
-          this.setState({
-            isLoading:true
-          })
-        }
+          setIsLoading(false)
         return response.json();
     }
-
+  }
     
-  render() {
+ 
     return (
         <Form>
         <Form.Group controlId="exampleForm.ControlInput1">
           <Form.Label>Comment text</Form.Label>
           <Form.Control onChange={(e)=>{
-              this.setState({
-                comment: {
-                    ...this.state.comment,
-                    comment: e.target.value
+             setComment({  ...comment,
+              comment: e.target.value})
                 }
-              })
-          }} type="text" placeholder='Enter some text' />
+              }
+           type="text" placeholder='Enter some text' />
         </Form.Group>
         <Form.Group controlId="exampleForm.ControlSelect1">
           <Form.Label>Rating</Form.Label>
           <Form.Control onChange={(e)=>{
-              this.setState({
-                  comment: {
-                      ...this.state.comment,
-                      rate: e.target.value
-                  }
-              })
-          }}
+             setComment({  ...comment,
+              rate: e.target.value})
+                }
+              }
           as="select">
             <option>1</option>
             <option>2</option>
@@ -68,10 +52,13 @@ export default class AddComment extends Component {
           </Form.Control>
         </Form.Group>
         <Button onClick={()=>{
-          this.postComments()
+          postComments()
         }} 
         type='button'className='btn brn-success'>Comment</Button>
       </Form>
     )
-  }
+  
 }
+
+
+export default AddComment

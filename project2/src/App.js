@@ -4,20 +4,15 @@ import MyFooter from './components/MyFooter'
 import Welcome from './components/WelcomeComponent';
 import BookList from './components/BookList';
 import romance from './data/romance.json';
-import {Component} from 'react';
+import { useState } from 'react';
 import {Container,Row,Col} from 'react-bootstrap'
 import CommentArea from './components/CommentArea';
 
 
-class App extends Component {
-  state = {
-    selected: undefined,
-  };
+function App () {
 
-   setSelection=(selection) => {
-     this.setState({selected: selection})
-   }
-  render() {
+  const [selected, setSelected] = useState(undefined)
+  
   return (
     <>
     <MyNav>
@@ -28,10 +23,10 @@ class App extends Component {
     <Container fluid>
       <Row >
         <Col xs={8} md={8} className="align-items-baseline ">
-        <BookList books={romance} selection={this.setSelection} />
+        <BookList books={romance} selection={setSelected} />
         </Col>
         <Col xs={4}  md={4}>
-        <CommentArea asin={this.state.selected}/>
+        <CommentArea asin={selected}/>
         </Col>
       </Row>
       </Container>
@@ -45,7 +40,7 @@ class App extends Component {
     
     </>
   );
-}
+
 }
 
 export default App;

@@ -1,10 +1,10 @@
-import {Component} from 'react'
 
 
 
 
-class MyFooter extends Component {
-    render() {
+
+const  MyFooter =function () {
+    
         const footerStyle = {
             position: 'fixed' ,
             bottom: '0' ,
@@ -29,7 +29,7 @@ class MyFooter extends Component {
       )
         
        
-    }
+    
 }
 
 export default MyFooter

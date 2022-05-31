@@ -1,4 +1,4 @@
-import React from 'react'
+import {useState, useEffect} from 'react'
 import CommentList from './CommentList'
 import {Spinner,Button} from 'react-bootstrap'
 import AlertDismissibleExample from './Alert';
@@ -6,24 +6,23 @@ import AddComment from './AddComment';
 
 
 
-export default class CommentArea extends React.Component {
-    state = {
-        comments:[],
-        isLoading: true,
-        isError: false,
-        addCommentVisible:false,
-        addCommentBtnVisible: true
-    }
+const CommentArea = function({asin})  {
+
+    const [comments, setComments] = useState([])
+    const[isLoading, setIsLoading] = useState(true)
+    const[isError, setIsError] = useState(false)
+    const[addCommentVisible, setAddCommentVisible] = useState(false)
+    const [addCommentBtnVisible, setAddCommentBtnVisible] = useState(true)
+
   
-    componentDidUpdate= (prevProps) => {
-        if(prevProps.asin !== this.props.asin){
-            this.fetchComments()
-        }
+   useEffect(()=>{
+       fetchComments()
+   },[asin])
         
-    }
-    fetchComments = async ()=> {
+    
+    const fetchComments = async ()=> {
         try{
-            const response = await fetch(`https://striveschool-api.herokuapp.com/api/comments/${this.props.asin}`, {
+            const response = await fetch(`https://striveschool-api.herokuapp.com/api/comments/${asin}`, {
                 headers: {
                 "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdkMDM4ZTZkMDZiOTAwMTUyZWYyYTEiLCJpYXQiOjE2NTM2NTQ3NjEsImV4cCI6MTY1NDg2NDM2MX0.XR-ftJg2hOvYlANycIWxBoCVYP0vFqdQTqEpjT8-GJc"
                 }
@@ -32,44 +31,43 @@ export default class CommentArea extends React.Component {
                     let data = await response.json()
                     console.log(data)
                     
-                    this.setState({
-                        comments: data,
-                        isLoading: false,
-                    })
+                  setComments(data)
+                  setIsLoading(false)
                 }
                 else {
                     console.log('error')
                 }
     }
     catch(error){
-        this.setState({
-            isError: true,
-            isLoading: false,
-        })
-        console.log(error)
+        
+            setIsError(true)
+            setIsLoading(false)
+            console.log(error)
     }
     }
    
-    render() {
+    
         return (
         <div>
             <div className='d-flex justify-content-center'>
-            {(this.state.isLoading && this.props.asin!==undefined) &&
+            {(isLoading && asin!==undefined) &&
             (<Spinner animation="border" />)}
-            {this.state.isError && (<AlertDismissibleExample/>)}
+            {isError && (<AlertDismissibleExample/>)}
             </div>
-            <CommentList comments={this.state.comments} fetch={this.fetchComments} />
+            <CommentList comments={comments} fetchData={fetchComments} />
             <div className='d-flex justify-content-center'>
                <div className=''>
-                    {this.state.addCommentBtnVisible && <Button onClick={()=>{this.setState(
-                        {addCommentVisible:true,addCommentBtnVisible:false}
-    
-                    )}} className='btn btn-light'>Add Comment</Button>}
-                    {this.state.addCommentVisible && <AddComment asin={this.props.asin}/>}
+                    {addCommentBtnVisible && <Button onClick={()=>{
+                        setAddCommentVisible(true)
+                        setAddCommentBtnVisible(false)
+                    }} 
+                    className='btn btn-light'>Add Comment</Button>}
+                    
+                    {addCommentVisible && <AddComment asin={asin}/>}
                </div>
                 </div>
         </div>
         )
     }
 
-}
+export default CommentArea

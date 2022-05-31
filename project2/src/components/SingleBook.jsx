@@ -1,29 +1,22 @@
-import {Component} from 'react'
 import {Card,Button} from 'react-bootstrap'
 
 
 
-class SingleBook extends Component {
+const SingleBook = ({selection,book}) => {
  
- 
-   
-  render() {
     const bookStyle = {
         marginLeft: '10px',
         marginBottom:'6px',
         width: '18rem',
         
       }
-      const {selection, book} = this.props
       
     return (
       
-      <Card  style={bookStyle}variant="top"
+      <Card  style={bookStyle} variant="top"
         onClick={() => {
         selection(book.asin)
-        
-      
-        
+         
       }
     }>
       
@@ -37,7 +30,7 @@ class SingleBook extends Component {
       
     );
   }
-}
+
 
 
 export default SingleBook
