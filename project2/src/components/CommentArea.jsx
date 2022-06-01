@@ -16,8 +16,10 @@ const CommentArea = function({asin})  {
 
   
    useEffect(()=>{
-       fetchComments()
-   },[asin,isLoading])
+       if(asin && isLoading){
+       fetchComments()}}
+   ,[asin,isLoading])
+           
         
     
     const fetchComments = async ()=> {

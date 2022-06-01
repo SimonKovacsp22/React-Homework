@@ -27,7 +27,7 @@
         return (
             comments.map((comment)=>(
             <div key={comment._id} className='d-flex justify-content-between px-3 align-items-center'>
-                <p >{comment.comment}</p>
+                <p >{comment.comment}  rating:{comment.rate}</p>
                 <button onClick={()=>{
                        deleteComment(`https://striveschool-api.herokuapp.com/api/comments/${comment._id}`)
                        
